@@ -1,0 +1,32 @@
+<%= turbo_frame_tag other_user_message do %>
+    <%
+    test_class = other_user_message.user.id == current_user.id ? "you-are-msg-user" : "you-are-not-msg-user"
+    %>
+    <div id="chatroom_<%= dom_id other_user_message %>" class="message other_user_msg <%= test_class %>" title="<%= other_user_message.user.username %>">
+        <%= link_to "account_circle", 
+            "#",
+            class: "material-icons-outlined message_account_icon" %>
+        
+        <%= other_user_message.content %>
+
+        <% if other_user_message.updated_at.to_date != other_user_message.created_at.to_date %>
+            <span class="message_updated">Edited <%= other_user_message.updated_at.strftime('%m/%d at %I:%M%P') %></span>
+        <% end %>
+        
+        <div class="actions">
+            <%= link_to "edit", 
+                edit_chatroom_message_path(other_user_message.chatroom, other_user_message), 
+                data: { turbo_frame: "mesage_#{other_user_message.id}" }, 
+                class: "btn material-icons-outlined", 
+                title: "Edit message" %>
+
+            <%= button_to "delete_forever", 
+                chatroom_message_path(other_user_message.chatroom, other_user_message), 
+                method: :delete, 
+                class: "material-icons-outlined", 
+                form: { data: { turbo_confirm: 'Are you sure you want to delete this message forever?' } } %>
+        </div>
+        
+    </div>
+
+<% end %>

@@ -1,0 +1,6 @@
+<h1>Welcome to the Chatroom App by  Ben HartLenn</h1>
+<% if user_signed_in? %>
+    <%= link_to "View Chatrooms", chatrooms_path, class: "btn block" %>
+<% else %>
+    <%= link_to "Sign in", new_user_session_path, class: "btn block" %>
+<% end %>

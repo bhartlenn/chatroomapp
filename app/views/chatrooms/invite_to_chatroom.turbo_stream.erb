@@ -1,0 +1,11 @@
+<%= render_turbo_stream_flash_messages %>
+
+<!-- Add chatroom to invited users list of chatroom invites 
+<%= turbo_stream.prepend "pending_chatrooms" do %>
+    <%= render "chatroom_pending", chatroom_pending: @participation.chatroom %>
+<% end %>-->
+
+<!-- Add user to list of chatroom participants 
+<%= turbo_stream.append "chatroom_card_full_participants" do %>
+    <%= render "user", user: @participation.user %>
+<% end %>-->

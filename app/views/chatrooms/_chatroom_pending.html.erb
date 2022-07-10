@@ -1,0 +1,22 @@
+<%= turbo_frame_tag chatroom_pending do %>
+  <article class="chatroom_card">
+    
+    <div class="chatroom_card_content">
+      <h3 class="chatroom_card_title"><%= chatroom_pending.name %></h3>
+      <p class="chatroom_card_description"><%= chatroom_pending.description %></p>
+      <p>Owner: <%= chatroom_pending.owner.username %></p>
+      <p>
+        <%= chatroom_pending.joined_users.size+1 %>
+        <span class="material-icons">group</span>
+      </p>
+    </div>
+
+    <div class="actions">
+      <%= button_to "check", 
+              chatroom_join_path(chatroom_pending), 
+              method: :put, 
+              class: "material-icons-outlined" %>
+    </div>
+
+  </article>
+<% end %>

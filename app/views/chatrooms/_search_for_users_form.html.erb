@@ -1,0 +1,11 @@
+<%= form_with url: chatroom_search_for_users_path(@chatroom), 
+    method: :post,
+    data: {
+        controller: 'debounce',
+        debounce_target: 'form'
+    } do |form| %>
+
+    <%= form.search_field :email_search, value: params[:email_search], data: { action: "input->debounce#search" }, autocomplete: "off", placeholder: "Search for users" %>
+<% end %>
+
+ <div id="search_for_users_results"></div>

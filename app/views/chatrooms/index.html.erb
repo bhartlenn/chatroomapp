@@ -1,0 +1,67 @@
+<!--
+ * Needs to be a devise current_user specific stream for chatrooms eventually
+-->
+<%= turbo_stream_from current_user, "chatrooms" %>
+
+<!--
+ * Owned Chatrooms 
+ * Chatrooms that this user has created and owns as a result
+-->
+<section id="owned_chatrooms_section">
+  <header>
+    <h2>Owned Chatrooms</h2>
+    
+    <%= link_to raw('<span class="material-icons">add</span>') + ' Chatroom',  
+        new_chatroom_path,
+        data: { turbo_frame: dom_id(Chatroom.new) },
+        class: "btn" %>
+  </header>
+
+  <!--
+   * This turbo frame is for loading the create new chatroom form into
+  -->
+  <%= turbo_frame_tag Chatroom.new %>
+
+  <!--
+   * Owned Chatrooms
+   * 
+  -->
+  <%= turbo_frame_tag "owned_chatrooms" do %>
+    <%= render @chatrooms %>
+    <p class="empty-state-msg">You haven't created any chatrooms yet</p>
+  <% end %>
+</section>
+
+<!--
+ * Joined Chatrooms
+ * Shows chatrooms that the user has accepted invites from other chatroom owners to
+ * See below pending chatrooms notes for more details 
+-->
+<section id="joined_chatrooms_section">
+  <header>
+    <h2>Joined Chatrooms</h2>
+  </header>
+
+  <%= turbo_frame_tag "joined_chatrooms" do %>
+    <%= render partial: "chatrooms/chatroom_joined", collection: @joined_chatrooms %>
+    <p class="empty-state-msg">You haven't accepted any invitations to join other peoples chatrooms</p>
+  <% end %>
+</section>
+
+<!--
+ * Pending Chatrooms 
+ * List of chatrooms where another room owner invited this user to their chatroom 
+ * This invitation creates a chatroom.participant with participation_type set to pending
+ * This display of chatrooms will include a button to approve the invitation, and the participation_type for this user will be changed to joined
+ * when a user clicks on the join chatroom link the chatroom should be visibly moved up to the joined chatrooms
+-->
+<section id="pending_chatrooms_section">
+  <header>
+    <h2>Pending Chatroom Invitations</h2>
+  </header>
+
+  <%= turbo_frame_tag "pending_chatrooms" do %>
+    <%= render partial: "chatrooms/chatroom_pending", collection: @pending_chatrooms %>
+    <p class="empty-state-msg">There's no invitations to other peoples chatrooms yet</p>
+  <% end %>
+</section>

@@ -1,0 +1,12 @@
+<h1>Editing message</h1>
+
+<%= turbo_frame_tag @message do %>
+  <%= render "form", message: @message %>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Show this message", chatroom_message_path(@message) %> |
+  <%= link_to "Back to messages", chatroom_path %>
+</div>

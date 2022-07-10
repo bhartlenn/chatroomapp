@@ -1,0 +1,61 @@
+<!-- Broadcast to this chatrooms messages whenever a user creates a message there -->
+<%= turbo_stream_from @chatroom, "messages" %>
+<!-- Need to broadcast to list of chatroom users when a user joins chatroom -->
+<%= turbo_stream_from @chatroom, "users" %>
+
+<article id="<%= dom_id(@chatroom) %>" class="chatroom_card_full" data-controller="display">
+  
+  <header id="chatroom_card_full_header">
+    <!-- Back button to users chatrooms dashboard -->
+    <%= link_to "arrow_back", 
+            chatrooms_path,
+            class: "btn material-icons-outlined",
+            title: "Go back to Chatrooms list" %>
+    <!-- The name of the chatroom the user is in -->
+    <h2><%= @chatroom.name %></h2>
+    <!-- Action buttons for the chatroom being shown -->
+    <div class="actions">
+      <!-- Chatroom participants button that shows the list of users joined chatroom, and the user inviter form -->      
+      <%= link_to "group", 
+            "", 
+            class: "btn material-icons-outlined", 
+            title: "Search for users to invite to your chatroom",
+            data: { 
+              action: "display#toggleTargets"
+            } %>
+      <%= link_to "edit", 
+            edit_chatroom_path(@chatroom), 
+            data: { turbo_frame: "chatroom_#{@chatroom.id}" }, 
+            class: "btn material-icons-outlined", 
+            title: "Edit chatroom details" %>
+      <%= button_to "delete_forever", 
+            chatroom_path(@chatroom), 
+            method: :delete, 
+            class: "material-icons-outlined", 
+            title: "Delete this chatroom and all messages forever?",
+            form: { data: { turbo_confirm: 'This will delete the Chatroom and all its Messages forever. Are you sure?' } } %>
+    </div>
+  </header>
+
+  <section id="chatroom_card_full_participants" class="showable" data-display-target="showable">
+    <h4>Participants</h4>
+    <div class="flex_container flex_rows">
+      <%= turbo_frame_tag "chatroom_users" do %>
+        <% @users = @chatroom.all_users_not_pending %>
+        <%= render partial: "chatrooms/user", collection: @users %>
+      <% end %>
+      <div class="flex_container flex_columns">
+        <%= render partial: "chatrooms/search_for_users_form", locals: { chatroom: @chatroom } %>
+      </div>
+    </div>
+  </section>
+  
+  <section id="chatroom_messages_section">
+    <%= turbo_frame_tag "chatroom_messages" do %>
+      <%= render @messages %>
+    <% end %>
+    <%= turbo_frame_tag Message.new, src: new_chatroom_message_path(@chatroom) %>
+  </section>
+    
+
+</article>

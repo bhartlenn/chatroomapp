@@ -1,0 +1,7 @@
+<%= render_turbo_stream_flash_messages %>
+<!-- Remove chatroom from list of chatrooms with pending invitation -->
+<%= turbo_stream.remove "chatroom_#{@participation.chatroom.id}" %>
+<!-- Add chatroom to list of joined chatrooms -->
+<%= turbo_stream.prepend "joined_chatrooms" do %>
+    <%= render "chatroom_joined", chatroom_joined: @participation.chatroom %>
+<% end %>

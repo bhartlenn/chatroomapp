@@ -1,0 +1,12 @@
+:root {
+    --darkest-purple: #144D75;
+    --darker-purple: #fff;
+    --dark-purple: #efefef;
+    --dark-pink: #3587C3;
+    --bright-pink: #F76F7B;
+
+    --container-padding: 3rem 4rem;
+    --card-padding: 1rem 1.5rem;
+
+    --site-max-width: 1000px;
+}

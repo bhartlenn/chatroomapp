@@ -1,0 +1,3 @@
+<%= render_turbo_stream_flash_messages %>
+<%= turbo_stream.prepend "owned_chatrooms", @chatroom %>
+<%= turbo_stream.replace Chatroom.new, "" %>

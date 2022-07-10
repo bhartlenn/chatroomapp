@@ -1,0 +1,40 @@
+<%= turbo_frame_tag chatroom do %>
+  <article class="chatroom_card">
+    
+    <div class="chatroom_card_content">
+      <h3 class="chatroom_card_title">
+        <%= link_to chatroom.name, 
+              chatroom_url(chatroom),
+              data: { turbo_frame: "_top" }, 
+              #class: "", 
+              title: "Enter this Chatroom" %>
+      </h3>
+      <p class="chatroom_card_description"><%= chatroom.description %></p>
+      <p>Owner <%= chatroom.owner.username %></p>
+      <p>
+        <%= chatroom.users.size %>
+        <span class="material-icons">group</span>
+      </p>
+    </div>
+
+    <div class="actions">
+        <%= link_to "fullscreen", 
+              chatroom_path(chatroom), 
+              data: { turbo_frame: "_top" }, 
+              class: "btn material-icons-outlined", 
+              title: "Enter this Chatroom" %>
+        <%= link_to "edit", 
+            edit_chatroom_path(chatroom), 
+            data: { turbo_frame: "chatroom_#{chatroom.id}" }, 
+            class: "btn material-icons-outlined", 
+            title: "Edit chatroom details" %>
+
+        <%= button_to "delete_forever", 
+              chatroom_path(chatroom), 
+              method: :delete, 
+              class: "material-icons-outlined", 
+              form: { data: { turbo_confirm: 'This will delete the Chatroom and all its Messages forever. Are you sure?' } } %>
+    </div>
+
+  </article>
+<% end %>

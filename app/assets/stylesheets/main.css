@@ -1,0 +1,425 @@
+@import "_variables.css";
+@import "_animations.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    background: var(--darkest-purple);
+    background-repeat: no-repeat;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #222;
+    font-weight: light;
+}
+
+.flex_container {
+    display: flex;
+}
+.flex_container > * {
+    flex: 1;
+}
+.flex_rows {
+    flex-direction: row;
+}
+.flex_columns {
+    flex-direction: column;
+}
+
+/* Flash Messages */
+#flashes {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: var(--site-max-width);
+}
+
+.flash_message {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    animation: appear-then-fade 4s both;
+    /* custom keyframes animation found in _animations.css */
+}
+
+.flash_message.notice {
+    background: #2CBF50;
+}
+
+.flash_message.alert {
+    background: #bf2c2c;
+}
+
+/* Empty states */
+.empty-state-msg {
+    display: none;
+}
+
+.empty-state-msg:only-child {
+    display: flex;
+}
+
+/* Layout main elements */
+.container {
+    max-width: var(--site-max-width);
+    margin: 0 2rem;
+    padding: var(--container-padding);
+    box-sizing: border-box;
+}
+
+.container header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.container>section {
+    margin-top: 2rem;
+}
+
+
+/* Links */
+a,
+a:link,
+a:visited,
+a:focus,
+a:active {
+    color: var(--dark-pink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--dark-pink);
+}
+
+a:hover {
+    color: var(--bright-pink);
+    border-bottom: 1px solid var(--bright-pink);
+}
+
+/* Material Icons */
+.material-icons-outlined:link,
+.material-icons-outlined:active,
+.material-icons-outlined:visited,
+.material-icons-outlined:focus {
+    border-bottom: none;
+}
+
+/* Headings */
+h3 a,
+h3 a:link,
+h3 a:visited,
+h3 a:focus,
+h3 a:active {
+    border-bottom: none;
+}
+
+p {
+    padding: 1rem 0 0;
+}
+
+/**
+ * Chatrooms index Styling
+ */
+#owned_chatrooms,
+#joined_chatrooms,
+#pending_chatrooms {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    margin-top: 1rem;
+}
+
+.chatroom_card,
+.chatroom_form {
+    display: flex;
+    justify-content: space-between;
+    background: var(--dark-purple);
+    padding: var(--container-padding);
+    border-radius: 0.5rem;
+}
+
+.chatroom_card_content {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.chatroom_card_content p {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.actions *:first-child {
+    margin-left: 0;
+}
+
+.actions>form {
+    padding: 0;
+}
+
+/**
+ * Full view of Chatroom when user enters
+ */
+.chatroom_card_full {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--darker-purple);
+    padding: var(--container-padding);
+    border-radius: 0.5rem;
+}
+
+#chatroom_card_full_header {
+    margin-bottom: 0;
+}
+
+#chatroom_card_full_header .actions {
+    margin-left: 0;
+}
+
+#chatroom_card_full_participants {
+    position: absolute;
+    z-index: 100;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: flex-end;
+    background: #b4ddfb;
+    color: #222;
+    padding: var(--card-padding);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+#chatroom_card_full_participants form {
+    flex-direction: column;
+}
+
+#chatroom_card_full_participants form input:not([type="submit"]) {
+    padding: 0.25rem;
+}
+
+#chatroom_card_full_participants #chatroom_users {
+    margin-bottom: 1rem;
+}
+
+/**
+ * Full Chatroom Messages Styling
+ */
+ #chatroom_messages_section {
+    margin-top: 1rem;
+ }
+
+ #chatroom_messages {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+#chatroom_messages .message {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--dark-purple);
+    border-radius: 0.5rem;
+    width: 90%;
+}
+
+#chatroom_messages .current_user_message {
+    margin-left: 10%;
+    flex-direction: row-reverse;
+}
+
+#chatroom_messages .message .message_account_icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.message_menu_btn,
+.actions {
+    margin-left: auto;
+}
+
+.message .actions {
+    position: absolute;
+    left: -80px;
+    display: none;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+.message:hover .actions {
+    display: flex;
+}
+
+
+/* general form css */
+form {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+form label {
+    cursor: pointer;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+textarea {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    outline: none;
+    padding: 0.75rem;
+    font-size: medium;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+textarea {
+    min-width: 282px;
+}
+
+a.btn,
+input[type="submit"],
+form.button_to button {
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    background: var(--dark-pink);
+    color: #fff;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+
+button {
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+a.btn:hover,
+form.button_to button:hover {
+    background: var(--bright-pink);
+}
+
+/* form errors */
+.errors-container {
+    color: var(--bright-pink);
+}
+
+.errors {
+    display: flex;
+    flex-direction: column;
+}
+
+.errors>.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.error>span {
+    margin-right: 1rem;
+}
+
+/* message form styling */
+.message_form {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--dark-pink);
+    border-radius: 0.5rem;
+    flex-wrap: nowrap;
+    display: -webkit-flex; /* SAFARI */
+    -webkit-box-pack: center; /* SAFARI justify-content */
+    -webkit-box-align: center; /* SAFARI align-items */
+}
+.new_message_form {
+    background: revert;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.message_form input[type="text"] {
+    flex: 1;
+    padding: 0.75rem 8.5rem 0.75rem 0.75rem;
+}
+
+.message_form input[type="submit"] {
+    text-align: center;
+    margin-left: -8rem;
+}
+
+/* footer styles */
+footer p {
+    text-align: center;
+}
+
+
+/* turbo progress bar in browser, not showing on forms? */
+.turbo-progress-bar {
+    height: 25px;
+    background: linear-gradient(to right, red, green);
+}
+
+/**
+ * Media Queries
+ */
+
+/* Any screen that is 1000px or larger */
+@media only screen and (min-width: 1000px) {
+    .container {
+        margin: 0 auto;
+    }
+}
+
+[hidden] {
+    display: none!important;
+}
+.showable {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.25s ease-in-out;
+}
+.showing {
+    transform: scaleY(1)
+}

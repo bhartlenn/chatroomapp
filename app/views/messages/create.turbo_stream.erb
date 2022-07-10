@@ -1,0 +1,2 @@
+<!-- Reload create message form. Should this form just have the input cleared by stimulus instead of reloading? -->
+<%= turbo_stream.replace Message.new, partial: "messages/form", locals: { message: Message.new } %>
