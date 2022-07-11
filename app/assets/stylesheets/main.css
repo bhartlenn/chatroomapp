@@ -126,9 +126,7 @@ p {
  */
 #chatrooms_index {
     display: flex;
-    flex-flow: column wrap;
-    align-items: ;
-    height: 100%;
+    flex-flow: row wrap;
 }
 #chatrooms_index > section {
     width: 100%;
