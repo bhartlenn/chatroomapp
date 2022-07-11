@@ -1,6 +1,3 @@
-@import "_variables.css";
-@import "_animations.css";
-
 * {
     margin: 0;
     padding: 0;
@@ -17,6 +14,7 @@ body {
     font-weight: light;
 }
 
+/* Helpful Flexbox classes */
 .flex_container {
     display: flex;
 }
@@ -50,8 +48,8 @@ body {
     column-gap: 0.5rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    animation: appear-then-fade 4s both;
     /* custom keyframes animation found in _animations.css */
+    animation: appear-then-fade 4s both;
 }
 
 .flash_message.notice {
@@ -85,11 +83,6 @@ body {
     align-items: center;
     margin-bottom: 1rem;
 }
-
-.container>section {
-    margin-top: 2rem;
-}
-
 
 /* Links */
 a,
@@ -131,6 +124,17 @@ p {
 /**
  * Chatrooms index Styling
  */
+#chatrooms_index {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: ;
+    height: 100%;
+}
+#chatrooms_index > section {
+    width: 100%;
+    flex: 1 1 300px;
+}
+
 #owned_chatrooms,
 #joined_chatrooms,
 #pending_chatrooms {
@@ -409,6 +413,7 @@ footer p {
 @media only screen and (min-width: 1000px) {
     .container {
         margin: 0 auto;
+        padding: 1rem 0;
     }
 }
 
