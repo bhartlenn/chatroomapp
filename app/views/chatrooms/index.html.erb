@@ -1,11 +1,11 @@
 <!--
- * Needs to be a devise current_user specific stream for chatrooms eventually
+ * Turbo stream to the current users list of chatrooms
 -->
 <%= turbo_stream_from current_user, "chatrooms" %>
 
 <!--
  * Owned Chatrooms 
- * Chatrooms that this user has created and owns as a result
+ * Chatrooms that the current user has created and thus is owner of
 -->
 <section id="owned_chatrooms_section">
   <header>
@@ -24,7 +24,6 @@
 
   <!--
    * Owned Chatrooms
-   * 
   -->
   <%= turbo_frame_tag "owned_chatrooms" do %>
     <%= render @chatrooms %>
