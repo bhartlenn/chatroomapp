@@ -48,7 +48,7 @@ body {
     column-gap: 0.5rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    /* custom keyframes animation found in _animations.css */
+    /* custom keyframes animation "appear-then-fade" found in _animations.css */
     animation: appear-then-fade 4s both;
 }
 
