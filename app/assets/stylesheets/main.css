@@ -131,11 +131,15 @@ p {
 }
 #chatrooms_index > section {
     width: 100%;
-    flex: 1 1 0;
 }
 #chatrooms_index #your_chatrooms_section {
     flex: 3 0 0;
 }
+
+#chatrooms_index > #pending_chatrooms_section {
+    flex: 1 1 0;
+}
+
 #owned_chatrooms,
 #joined_chatrooms,
 #pending_chatrooms {

@@ -19,7 +19,15 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        @message.broadcast_append_later_to [@chatroom, "messages"], target: "chatroom_messages", partial: "messages/other_user_message", locals: {chatroom: @chatroom, other_user_message: @message, current_user: current_user}
+
+        #@chatroom.all_users_not_pending.each do |cr_user| 
+          #if cr_user.id == @message.user
+           # @message.broadcast_append_later_to [@chatroom, "messages"], target: "chatroom_messages", partial: "messages/other_user_message", locals: {chatroom: @chatroom, message: @message, current_user: User.find(cr_user.id)}
+          #else
+           # @message.broadcast_append_later_to [@chatroom, "messages"], target: "chatroom_messages", partial: "messages/other_user_message", locals: {chatroom: @chatroom, other_user_message: @message, current_user: User.find(cr_user.id)}
+          #end
+        #end
+        @message.broadcast_append_later_to [@chatroom, "messages"], target: "chatroom_messages", partial: "messages/message", locals: {chatroom: @chatroom, message: @message, current_user: current_user}
         #@chatroom.broadcast_prepend_later_to [@participation.user, "chatrooms"], target: "pending_chatrooms", partial: "chatrooms/chatroom_pending", locals: {chatroom_pending: @chatroom}
         
         format.turbo_stream

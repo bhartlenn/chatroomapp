@@ -37,6 +37,9 @@
     </div>
   </header>
 
+  <!--
+  Chatroom participants list, and participant management interface
+  -->
   <section id="chatroom_card_full_participants" class="showable" data-display-target="showable">
     <h4>Participants</h4>
     <div class="flex_container flex_rows">
@@ -50,12 +53,14 @@
     </div>
   </section>
   
+  <!--
+  The messages for this chatroom
+  -->
   <section id="chatroom_messages_section">
-    <%= turbo_frame_tag "chatroom_messages" do %>
+    <div id="chatroom_messages">
       <%= render @messages %>
-    <% end %>
+    </div>
     <%= turbo_frame_tag Message.new, src: new_chatroom_message_path(@chatroom) %>
   </section>
     
-
 </article>

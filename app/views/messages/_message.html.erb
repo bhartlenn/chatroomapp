@@ -1,8 +1,8 @@
 <%= turbo_frame_tag message do %>
     <%
-    current_user_msg_class = message.user.id == current_user.id ? "current_user_message" : "other_user_message"
+    msg_user_class = message.user.id == current_user.id ? "current_user_message" : "other_user_message"
     %>
-    <div id="chatroom_<%= dom_id message %>" class="message <%= current_user_msg_class %>" title="<%= message.user.username %>">
+    <div id="chatroom_<%= dom_id message %>" class="message <%= msg_user_class %>" title="<%= message.user.username %>">
         <%= link_to "account_circle", 
             "#",
             class: "material-icons-outlined message_account_icon" %>
