@@ -159,11 +159,14 @@ p {
     padding: var(--container-padding);
     border-radius: 0.5rem;
 }
+#pending_chatrooms .chatroom_card {
+    padding: 1rem;
+}
 
 .chatroom_card_content {
     display: flex;
     flex-flow: row wrap;
-    column-gap: 1rem;
+    gap: 1rem;
     align-items: center;
     justify-content: space-around;
 }

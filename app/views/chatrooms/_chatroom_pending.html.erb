@@ -1,9 +1,8 @@
 <%= turbo_frame_tag chatroom_pending do %>
-  <article class="chatroom_card">
+  <article class="chatroom_card"  title="<%= chatroom_pending.description %>">
     
     <div class="chatroom_card_content">
       <h3 class="chatroom_card_title"><%= chatroom_pending.name %></h3>
-      <p class="chatroom_card_description"><%= chatroom_pending.description %></p>
       <p>Owner: <%= chatroom_pending.owner.username %></p>
       <p>
         <%= chatroom_pending.joined_users.size+1 %>

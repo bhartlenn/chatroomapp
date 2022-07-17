@@ -45,7 +45,7 @@
     <div class="flex_container flex_rows">
       <%= turbo_frame_tag "chatroom_users" do %>
         <% @users = @chatroom.all_users_not_pending %>
-        <%= render partial: "chatrooms/user", collection: @users %>
+        <%= render partial: "chatrooms/user", collection: @users, locals: { chatroom: @chatroom } %>
       <% end %>
       <div class="flex_container flex_columns">
         <%= render partial: "chatrooms/search_for_users_form", locals: { chatroom: @chatroom } %>

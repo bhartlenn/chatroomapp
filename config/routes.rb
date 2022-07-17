@@ -17,8 +17,10 @@ Rails.application.routes.draw do
     put 'join_chatroom', to: 'chatrooms#join_chatroom', as: 'join'
     # When a user is tired of some dramatic bullshit going on in a chatroom, they can leave that shitty chatroom
     put 'leave_chatroom', to: 'chatrooms#leave_chatroom', as: 'leave'
+    # When a chatroom owner is tired of some dramatic bullshit going on in a chatroom, they can kick users from their awesome chatroom
+    put 'kick_user/:user_id', to: 'chatrooms#kick_user', as: "kick_user"
 
-    # no index action needed because it's on chatroom/show view, 
+    # no index action needed because it's on chatroom/show view,
     # no show action needed because it wouldn't make sense for message to be shown outside chatroom
     resources :messages, except: [:index, :show]
 

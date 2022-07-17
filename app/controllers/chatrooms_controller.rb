@@ -1,5 +1,5 @@
 class ChatroomsController < ApplicationController
-  before_action :set_chatroom, only: %i[ show edit update destroy search_for_users invite_to_chatroom join_chatroom leave_chatroom ]
+  before_action :set_chatroom, only: %i[ show edit update destroy search_for_users invite_to_chatroom join_chatroom leave_chatroom kick_user ]
 
   # GET /chatrooms or /chatrooms.json
   def index
@@ -149,6 +149,25 @@ class ChatroomsController < ApplicationController
         @chatroom.broadcast_remove_to [@chatroom, "users"], target: "user_#{current_user.id}"
 
         format.turbo_stream { flash.now[:notice] = "You have successfully left " + @chatroom.name }
+        format.html { redirect_to chatrooms_path, notice: "You have successfully joined the chatroom." }
+      else
+        format.html { render :index, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT chatrooms/:chatroom_id/chatroom_kick_user/:user_id
+  def kick_user
+     
+    # find participation with kicked user, the chatroom the request was made from, and where the participation_type is set to joined
+    @participation = @chatroom.participants.find_by(user_id: params[:user_id], chatroom: @chatroom, participation_type: "joined")
+
+    respond_to do |format|
+      if @participation.delete
+
+        @chatroom.broadcast_remove_to [@chatroom, "users"], target: "user_#{params[:user_id]}"
+
+        format.turbo_stream { flash.now[:notice] = "You have successfully kicked user #{params[:user_id]}" }
         format.html { redirect_to chatrooms_path, notice: "You have successfully joined the chatroom." }
       else
         format.html { render :index, status: :unprocessable_entity }
