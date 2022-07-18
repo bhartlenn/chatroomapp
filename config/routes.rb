@@ -13,8 +13,10 @@ Rails.application.routes.draw do
     post :search_for_users
     # chatroom owners can search for users(above), then click on a link to invite user to their chatroom
     put 'invite_to_chatroom/:user_id', to: 'chatrooms#invite_to_chatroom', as: 'invite'
-    # When a user has a pending chatroom.participant entry, they can accept the invitation to join the chatroom
-    put 'join_chatroom', to: 'chatrooms#join_chatroom', as: 'join'
+    # When a user has a pending invitation(chatroom.participant entry), they can accept the invitation to join the chatroom
+    put 'accept_invitation', to: 'chatrooms#accept_invitation', as: 'accept_invitation'
+    # When a user has a pending invitation, they can decline the invitation to join the chatroom
+    put 'decline_invitation', to: 'chatrooms#decline_invitation', as: 'decline_invitation'
     # When a user is tired of some dramatic bullshit going on in a chatroom, they can leave that shitty chatroom
     put 'leave_chatroom', to: 'chatrooms#leave_chatroom', as: 'leave'
     # When a chatroom owner is tired of some dramatic bullshit going on in a chatroom, they can kick users from their awesome chatroom

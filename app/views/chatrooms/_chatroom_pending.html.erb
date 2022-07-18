@@ -12,9 +12,15 @@
 
     <div class="actions">
       <%= button_to "check", 
-              chatroom_join_path(chatroom_pending), 
+              chatroom_accept_invitation_path(chatroom_pending), 
               method: :put, 
-              class: "material-icons-outlined" %>
+              class: "material-icons-outlined",
+              title: "Accept Invitation" %>
+      <%= button_to "close", 
+              chatroom_decline_invitation_path(chatroom_pending), 
+              method: :put, 
+              class: "material-icons-outlined",
+              title: "Decline Invitation" %>          
     </div>
 
   </article>

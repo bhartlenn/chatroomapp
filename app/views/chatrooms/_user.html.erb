@@ -1,8 +1,8 @@
 <div id="<%= dom_id(user) %>">
     <%= user.username %>
-    <% if user != @chatroom.owner %>
+    <% if user != chatroom.owner %>
         <%= button_to "person_remove", 
-              chatroom_kick_user_path(@chatroom, user), 
+              chatroom_kick_user_path(chatroom, user), 
               method: :put, 
               class: "material-icons-outlined" %>
     <% end %>

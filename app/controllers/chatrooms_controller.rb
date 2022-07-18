@@ -116,8 +116,8 @@ class ChatroomsController < ApplicationController
     end
   end
   
-  # PUT chatrooms/:chatroom_id/join_chatroom
-  def join_chatroom
+  # PUT chatrooms/:chatroom_id/accept_invitation
+  def accept_invitation
     @chatroom = Chatroom.find(params[:chatroom_id])
      
     # find participation with current_user, the chatroom the request was made from, and where the participation_type is set to pending
@@ -126,8 +126,29 @@ class ChatroomsController < ApplicationController
     respond_to do |format|
       if @participation.update(participation_type: 'joined')
 
-        # Now that invited user has joined chatroom, broadcast the new user to the list of chatroom users
+        # Now that invited user has joined chatroom, broadcast the new user to the list of chatroom users.
         @chatroom.broadcast_append_later_to [@chatroom, "users"], target: "chatroom_users", partial: "chatrooms/user", locals: {user: @participation.user}
+        
+        format.turbo_stream { flash.now[:notice] = "You have successfully joined the chatroom." }
+        format.html { redirect_to chatrooms_path, notice: "You have successfully joined the chatroom." }
+      else
+        format.html { render :index, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT chatrooms/:chatroom_id/decline_invitation
+  def decline_invitation
+    @chatroom = Chatroom.find(params[:chatroom_id])
+     
+    # find participation with current_user, the chatroom the request was made from, and where the participation_type is set to pending
+    @participation = @chatroom.participants.find_by(user: current_user, chatroom: @chatroom, participation_type: "pending")
+
+    respond_to do |format|
+      if @participation.delete
+
+        # Invited user has declined the chatroom invitation, so remove the chatroom from their pending chatrooms list
+        @chatroom.broadcast_remove_to [@participation.user, "chatrooms"], target: "chatroom_#{@chatroom.id}"
         
         format.turbo_stream { flash.now[:notice] = "You have successfully joined the chatroom." }
         format.html { redirect_to chatrooms_path, notice: "You have successfully joined the chatroom." }
@@ -167,6 +188,8 @@ class ChatroomsController < ApplicationController
 
         @chatroom.broadcast_remove_to [@chatroom, "users"], target: "user_#{params[:user_id]}"
 
+        @chatroom.broadcast_remove_to [@participation.user, "chatrooms"]
+        
         format.turbo_stream { flash.now[:notice] = "You have successfully kicked user #{params[:user_id]}" }
         format.html { redirect_to chatrooms_path, notice: "You have successfully joined the chatroom." }
       else

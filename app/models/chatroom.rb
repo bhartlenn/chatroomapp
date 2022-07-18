@@ -21,6 +21,7 @@ class Chatroom < ApplicationRecord
 
     scope :ordered, -> { order(id: :asc) }
 
+    # Examples of broadcasting from rails model:
     # full version with all properties set as default values would be like the next 3 lines, see below for short form version of the three lines below  
     #after_create_commit -> { broadcast_prepend_later_to "chatrooms", partial: "chatrooms/chatroom", locals: {chatroom: self}, target: "chatrooms" }
     #after_update_commit -> { broadcast_replace_later_to "chatrooms", partial: "chatrooms/chatroom", locals: {chatroom: self}, target: "chatrooms" }
