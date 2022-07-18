@@ -23,6 +23,7 @@
             data: { 
               action: "display#toggleTargets"
             } %>
+            <!--
       <%= link_to "edit", 
             edit_chatroom_path(@chatroom), 
             data: { turbo_frame: "chatroom_#{@chatroom.id}" }, 
@@ -34,6 +35,7 @@
             class: "material-icons-outlined", 
             title: "Delete this chatroom and all messages forever?",
             form: { data: { turbo_confirm: 'This will delete the Chatroom and all its Messages forever. Are you sure?' } } %>
+            -->
     </div>
   </header>
 
