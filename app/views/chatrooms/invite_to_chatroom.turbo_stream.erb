@@ -1,1 +1,2 @@
 <%= render_turbo_stream_flash_messages %>
+<%= turbo_stream.remove "potential_user_#{@participation.user.id}"%>

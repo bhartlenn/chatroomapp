@@ -1,6 +1,6 @@
 <% users.each do |user| %>
   <br>
-  <%= button_to chatroom_invite_path(@chatroom, user), method: :put do %>
+  <%= button_to chatroom_invite_path(@chatroom, user), method: :put, form: { id: "potential_user_#{user.id}"} do %>
     <%= highlight(user.email, params.dig(:email_search)) %>
   <% end %>
 <% end %>
