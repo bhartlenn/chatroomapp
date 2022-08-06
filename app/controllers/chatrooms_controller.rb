@@ -49,7 +49,7 @@ class ChatroomsController < ApplicationController
   def update
     respond_to do |format|
       if @chatroom.update(chatroom_params)
-        # broadcasting from controller so we can send devises current_user to the view loaded via turbo stream broadcast
+        # broadcasting from controller so we can send devises current_user to the view loaded via turbo stream broadcast(?)
         @chatroom.broadcast_replace_later_to @chatroom, locals: {chatroom: @chatroom, current_user: current_user}
         format.turbo_stream { flash.now[:notice] = "Chatroom was successfully updated." }
         format.html { redirect_to chatrooms_url, notice: "Chatroom was successfully updated." }

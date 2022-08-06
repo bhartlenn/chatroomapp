@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  # Defines the root path route ("/")
+  root "pages#home"
+
   # home page route handled in pages controller
   get 'pages/home'
 
@@ -28,7 +32,6 @@ Rails.application.routes.draw do
 
   end
 
-  # Defines the root path route ("/")
-  root "pages#home"
+
   
 end
